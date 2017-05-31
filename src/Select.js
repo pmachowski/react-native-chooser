@@ -25,19 +25,19 @@ export default class Select extends React.PureComponent {
 		indicatorColor: PropTypes.string,
 		indicatorSize: PropTypes.number,
 		indicatorStyle: PropTypes.object,
-		
+
 		//Settings
 		defaultValue: PropTypes.string,
 		onSelect: PropTypes.func,
 		multiSelect: PropTypes.bool,
-		
+
 		//styles
 		backgroundStyle: PropTypes.object,
-		
+
 		//Animation
 		direction: PropTypes.string,
 		duration: PropTypes.number,
-		
+
 		//Elements
 		renderButton: PropTypes.element,
 		renderOptionItem: PropTypes.element,
@@ -62,7 +62,7 @@ export default class Select extends React.PureComponent {
 	 * Settings state..
 	 */
 	state = {
-  	modalVisible: false, 
+  	modalVisible: false,
 	  selectedValue: this.props.defaultValue,
 	  selected: null,
 	};
@@ -75,7 +75,7 @@ export default class Select extends React.PureComponent {
   right = (this.props.direction == 'fromRight')? new Animated.Value(-deviceWidth): null
   top = (this.props.direction == 'fromTop')? new Animated.Value(-deviceHeight): null
   bottom = (this.props.direction == 'fromBottom')? new Animated.Value(-deviceHeight): null
-	
+
 
   /**
    * Open select
@@ -99,16 +99,16 @@ export default class Select extends React.PureComponent {
 	 */
 	_animateIn(direction){
 		switch(direction){
-			case 'fromLeft': 
+			case 'fromLeft':
 				Animated.timing(this.left, {toValue: 0, duration: this.props.duration}).start()
 				break
-			case 'fromRight': 
+			case 'fromRight':
 				Animated.timing(this.right, {toValue: 0, duration: this.props.duration}).start()
 				break
-			case 'fromTop': 
+			case 'fromTop':
 				Animated.timing(this.top, {toValue: 0, duration: this.props.duration}).start()
 				break
-			case 'fromBottom': 
+			case 'fromBottom':
 				Animated.timing(this.bottom, {toValue: 0, duration: this.props.duration}).start()
 				break
 		}
@@ -121,16 +121,16 @@ export default class Select extends React.PureComponent {
 	_animateOut(direction){
 		return new Promise( (resolve, reject) => {
 			switch(direction){
-				case 'fromLeft': 
+				case 'fromLeft':
 					Animated.timing(this.left, {toValue: -deviceWidth, duration: this.props.duration}).start(resolve())
 					break
-				case 'fromRight': 
+				case 'fromRight':
 					Animated.timing(this.right, {toValue: -deviceWidth, duration: this.props.duration}).start(resolve())
 					break
-				case 'fromTop': 
+				case 'fromTop':
 					Animated.timing(this.top, {toValue: -deviceHeight, duration: this.props.duration}).start(resolve())
 					break
-				case 'fromBottom': 
+				case 'fromBottom':
 					Animated.timing(this.bottom, {toValue: -deviceHeight, duration: this.props.duration}).start(resolve())
 					break
 			}
@@ -161,10 +161,10 @@ export default class Select extends React.PureComponent {
 			this.setState({selected: items})
 			this.props.onSelect(items)
 		}else{
-			if (pressedVal.value !== undefined) 
+			if (pressedVal.value !== undefined)
 				this.setState({selectedValue: pressedVal.value})
 			this.setState({selected: pressedVal})
-			this.props.onSelect(this.state.selected)
+			this.props.onSelect(pressedVal)
 			this.closeModal()
 		}
 	}
@@ -175,10 +175,10 @@ export default class Select extends React.PureComponent {
 	render() {
 		let {
 			backgroundStyle,
-			indicator, 
-			indicatorColor, 
-			indicatorSize, 
-			indicatorStyle 
+			indicator,
+			indicatorColor,
+			indicatorSize,
+			indicatorStyle
 		} = this.props
 
 
