@@ -97,8 +97,8 @@ export default class Select extends React.PureComponent {
    * Internal animation function to transition out
    * @param  {string} direction [Should be one of following: fromLeft, fromRight, fromTop, fromBottom]
    */
-  _animateIn(direction){
-    switch(direction){
+  _animateIn(direction) {
+    switch(direction) {
       case 'fromLeft':
         Animated.timing(this.left, {toValue: 0, duration: this.props.duration}).start()
         break
@@ -118,9 +118,9 @@ export default class Select extends React.PureComponent {
    * Internal animation function to transition in
    * @param  {string} direction [Should be one of following: fromLeft, fromRight, fromTop, fromBottom]
    */
-  _animateOut(direction){
+  _animateOut(direction) {
     return new Promise( (resolve, reject) => {
-      switch(direction){
+      switch(direction) {
         case 'fromLeft':
           Animated.timing(this.left, {toValue: -deviceWidth, duration: this.props.duration}).start(resolve())
           break
@@ -142,14 +142,14 @@ export default class Select extends React.PureComponent {
    * Option is pressed
    * @param  {integer} index [integer that defines what data[index] that has the option]
    */
-  _optionPress(index){
+  _optionPress(index) {
     console.log(index)
     let pressedVal = this.props.data[index]
 
     //handle multiselect
     let items = []
-    if (this.props.multiSelect){
-      if (this.state.selected == null){
+    if (this.props.multiSelect) {
+      if (this.state.selected == null) {
         items.push(pressedVal)
       }else{
         items = this.state.selected
@@ -184,13 +184,13 @@ export default class Select extends React.PureComponent {
 
     let items = []
     this.props.data.forEach( (item, index) => {
-      if (this.props.renderOptionItem){
+      if (this.props.renderOptionItem) {
         items.push(
           <TouchableWithoutFeedback onPress={e => this._optionPress(index)} key={index}>
             {this.props.renderOptionItem(item, index)}
           </TouchableWithoutFeedback>
         )
-      }else{
+      } else {
         items.push(
           <TouchableWithoutFeedback onPress={e => this._optionPress(index)} key={index}>
             <View style={styles.optionItem} key={index}>
@@ -265,7 +265,7 @@ export default class Select extends React.PureComponent {
   /**
    * Reset selected
    */
-  reset(){
+  reset() {
     this.setState({
       selectedValue: this.props.defaultValue,
       selected: null,
@@ -275,14 +275,14 @@ export default class Select extends React.PureComponent {
   /**
    * Return selected object to the user
    */
-  getSelected(){
+  getSelected() {
     return this.state.selected
   }
 
   /**
    * Return selected value string to the user
    */
-  getSelectedValue(){
+  getSelectedValue() {
     return this.state.selectedValue
   }
 
@@ -291,7 +291,7 @@ export default class Select extends React.PureComponent {
    * @param {object} object Object that the Select should have in memory
    * @param {val} string String that should be placed into the selected value box
    */
-  setSelected(object, val){
+  setSelected(object, val) {
     if (typeof object == Object) {
       console.log('ReactNativeChooser: Please pass correct object .setSelected(object, value)')
       return false
@@ -310,33 +310,33 @@ export default class Select extends React.PureComponent {
 
 
 var styles = StyleSheet.create({
-  selectBox:{
+  selectBox: {
     borderWidth: 1,
     width: 200,
     padding: 10,
     borderColor : 'black'
   },
-  selectBoxContent:{
+  selectBoxContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  modalOverlay:{
+  modalOverlay: {
     flex : 1,
     justifyContent : 'center',
     alignItems : 'center',
   },
-  modal:{
+  modal: {
     position: 'absolute',
     height: deviceHeight,
     width: deviceWidth,
   },
 
   //OptionItems
-  optionItem:{
+  optionItem: {
     padding: 10,
   },
-  optionText:{
+  optionText: {
     fontSize: 14
   }
 })
